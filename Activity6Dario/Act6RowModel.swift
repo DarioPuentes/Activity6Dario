@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Act6RowView: View {
+struct Act6RowView: View { // Detail row view
     let character: Character
 
     var body: some View {

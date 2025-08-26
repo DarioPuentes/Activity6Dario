@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CharactersResponse: Codable {
+struct CharactersResponse: Codable { // Handle double level json from API
     let results: [Character]
 }
 

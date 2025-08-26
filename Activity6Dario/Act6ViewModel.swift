@@ -12,14 +12,14 @@ enum NetworkError: LocalizedError {
     case apiFails
     case decodingFail
     
-    var errorDescription: String? {
+    var errorDescription: String? { // Define error type
         switch self {
         case .internet:
-            return "No connection. Please try again."
+            return "No connection. Please try again." // No internet error message
         case .apiFails:
-            return "Error 404: API not found"
+            return "Error 404: API not found" // Invalid URL message
         case .decodingFail:
-            return "Decoding error"
+            return "Decoding error" // App error
         }
     }
 }
@@ -31,16 +31,19 @@ class Act6ViewModel: ObservableObject {
     var errorMessage: String?
     
     func getPhotosCharacter() async {
+        
+        // GET API
         guard let url = URL(string: "https://rickandmortyapi.com/api/character") else {
             self.errorMessage = "Invalid URL"
             return
         }
         
+        // Error handler
         do {
             let (data, response) = try await URLSession.shared.data(from: url)
             
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                throw NetworkError.apiFails
+                throw NetworkError.apiFails // "Error 404" message
             }
             
             let decoded = try JSONDecoder().decode(CharactersResponse.self, from: data)
@@ -48,13 +51,13 @@ class Act6ViewModel: ObservableObject {
             self.errorMessage = nil
         }
         catch let urlError as URLError where urlError.code == .notConnectedToInternet {
-            self.errorMessage = NetworkError.internet.errorDescription
+            self.errorMessage = NetworkError.internet.errorDescription // "No internet" messsage
         }
         catch is DecodingError {
-            self.errorMessage = NetworkError.decodingFail.errorDescription
+            self.errorMessage = NetworkError.decodingFail.errorDescription // "Decoding error" message
         }
         catch {
-            self.errorMessage = error.localizedDescription
+            self.errorMessage = error.localizedDescription // Mantain error message
         }
     }
 }
