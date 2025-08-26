@@ -19,7 +19,8 @@ struct Act6RowView: View {
             }
             .frame(width: 80, height: 80)
             .clipShape(Circle())
-
+            
+            Spacer()
             Text(character.name)
                 .font(.title3.bold())
                 .foregroundColor(.primary)

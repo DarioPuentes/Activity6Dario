@@ -12,11 +12,11 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
+            VStack (alignment: .center){
                 Text("Rick & Morty Main Characters")
                     .font(.title)
+                    .fontWeight(.bold)
                     .foregroundColor(.green)
-                    .shadow(color: .yellow, radius: 1, x: 1, y: 1)
                     .padding(.bottom, 10)
                 
                 if let error = characterVM.errorMessage {
